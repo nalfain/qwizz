@@ -24,7 +24,7 @@ struct ContentView: View {
 
 struct CardView: View {
     var isFaseUP: Bool = false
-    
+    var arr=5
     var body: some View {
         ZStack(content: {
             if isFaseUP {
