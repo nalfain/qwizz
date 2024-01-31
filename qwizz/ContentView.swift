@@ -8,52 +8,54 @@
 import SwiftUI
 
 struct ContentView: View {
+    let emojis: Array<String> = ["🎃","👻","🤡","💩","🎃"]
+    
     var body: some View {
-        VStack {
-            CardView(isFaseUP: true)
-            CardView()
-            CardView(isFaseUP: true)
-            CardView()
-        }
+        HStack {
+            ForEach(emojis.indices, id: \.self) { index in
+                CardView(content: emojis[index])
+            
+            }
+     }
         .foregroundColor(.orange)
         .padding()
     }
 }
 
-
-
 struct CardView: View {
-    var isFaseUP: Bool = false
-    var arr=5
+    let content: String
+    @State var isFaseUP = true
     var body: some View {
-        ZStack(content: {
+        ZStack {
+            let base = RoundedRectangle(cornerRadius: 12)
             if isFaseUP {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(lineWidth: 2)
-                Text("👻").font(.largeTitle)
+                base.fill(.white)
+                base.strokeBorder(lineWidth: 2)
+                Text(content).font(.largeTitle)
             } else {
-                RoundedRectangle(cornerRadius: 12)
+                base.fill()
             }
-        })
+        }
+        .onTapGesture {
+            isFaseUP.toggle() //Ошибку уберет перед переменной - @State
+        }
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
     }
 }
